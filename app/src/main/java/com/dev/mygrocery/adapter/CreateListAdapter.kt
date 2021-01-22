@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.dev.mygrocery.R
 import kotlinx.android.synthetic.main.main_adapter_row_item.view.*
 
-class MainAdapter(private val context: Context) : RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+class CreateListAdapter(private val context: Context) : RecyclerView.Adapter<CreateListAdapter.ViewHolder>() {
 
     private  var itemNameList = arrayListOf<String>()
 

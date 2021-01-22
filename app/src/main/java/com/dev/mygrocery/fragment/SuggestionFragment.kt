@@ -11,14 +11,14 @@ import com.dev.mygrocery.adapter.SuggestionAdapter
 import com.dev.mygrocery.models.SuggestionResponse
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_suggestion.*
-import org.json.JSONException
-import org.json.JSONObject
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.Charset
 
 
 class SuggestionFragment : Fragment() {
+
+    private var suggestionList: ArrayList<SuggestionResponse.Data.Suggestion>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,11 +42,15 @@ class SuggestionFragment : Fragment() {
     private fun bindDataView() {
 
         val gson = Gson()
+        val suggestionResponse = gson.fromJson(loadJSONFromAsset(), SuggestionResponse::class.java)
 
-        val suggestionList = gson.fromJson(loadJSONFromAsset(), SuggestionResponse::class.java)
+        suggestionList = ArrayList()
         suggestion_recycler_view_list.layoutManager = LinearLayoutManager(activity)
-        suggestion_recycler_view_list.adapter = activity?.let { SuggestionAdapter(it, suggestionList.data.suggestionList) }
 
+        val suggestionAdapter = activity?.let { SuggestionAdapter(it, suggestionList!!) }
+        suggestion_recycler_view_list.adapter = suggestionAdapter
+
+        suggestionList?.addAll(suggestionResponse.data.suggestionList)
     }
 
     fun loadJSONFromAsset(): String? {

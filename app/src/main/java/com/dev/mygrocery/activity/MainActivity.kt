@@ -1,5 +1,6 @@
 package com.dev.mygrocery.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -29,6 +30,12 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
             this
         )
         main_tab_layout.setupWithViewPager(main_view_pager)
+
+        fab_action_button.setOnClickListener(View.OnClickListener {
+
+            val intent = Intent(this, CreateListActivity::class.java)
+            startActivity(intent)
+        })
     }
 
     override fun onClick(v: View?) {
