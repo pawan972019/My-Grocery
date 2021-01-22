@@ -1,0 +1,24 @@
+{
+  "data": {
+    "suggestionList": [
+      {
+        "name": "Vegetable"
+      },
+      {
+        "name": "Fruits"
+      },
+      {
+        "name": "Dairy"
+      },
+      {
+        "name": "Kitchen"
+      },
+      {
+        "name": "medicine"
+      },
+      {
+        "name": "Personal use"
+      }
+    ]
+  }
+}

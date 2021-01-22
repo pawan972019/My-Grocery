@@ -1,13 +1,12 @@
 package com.dev.mygrocery.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentPagerAdapter
 import com.dev.mygrocery.R
-import com.dev.mygrocery.adapter.MainAdapter
+import com.dev.mygrocery.adapter.MainViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), View.OnClickListener {
@@ -19,7 +18,17 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         Log.e(TAG, "onCreate: ")
+        bindView()
+    }
 
+    private fun bindView() {
+
+        main_view_pager.adapter = MainViewPagerAdapter(
+            supportFragmentManager,
+            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,
+            this
+        )
+        main_tab_layout.setupWithViewPager(main_view_pager)
     }
 
     override fun onClick(v: View?) {
