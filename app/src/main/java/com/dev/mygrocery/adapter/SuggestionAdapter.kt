@@ -1,6 +1,7 @@
 package com.dev.mygrocery.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +15,20 @@ class SuggestionAdapter(private val context: Context, var suggestionList: List<G
 
     private val TAG : String = "SuggestionAdapter";
 
-    class SuggestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
+    inner class SuggestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
+        View.OnClickListener {
 
-        val suggestedItemName = itemView.suggested_item_name!!
+        val textViewTask = itemView.textViewTask!!
+        val textViewStatus = itemView.textViewStatus!!
+
+        init {
+            itemView.setOnClickListener(this)
+        }
+
+        override fun onClick(v: View?) {
+
+            Log.e(TAG, "onClick: ")
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionViewHolder {
@@ -34,6 +46,12 @@ class SuggestionAdapter(private val context: Context, var suggestionList: List<G
 
         val suggestionResponse = suggestionList[position]
 
-        holder.suggestedItemName.text = suggestionResponse.listName
+        holder.textViewTask.text = suggestionResponse.listName?.trim()
+
+        if(suggestionResponse.isFinished){
+            holder.textViewStatus.text = "Completed"
+        }else{
+            holder.textViewStatus.text = "Not Completed"
+        }
     }
 }

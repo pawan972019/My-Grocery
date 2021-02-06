@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 }else {
 
                     val groceryListEntity = GroceryListEntity()
-                    groceryListEntity.listName = dialog.edt_text_list_name.text.toString()
+                    groceryListEntity.listName = dialog.edt_text_list_name.text.toString().trim()
 
                     CoroutineScope(IO).launch {
 
