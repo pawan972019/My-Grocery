@@ -7,10 +7,10 @@ import androidx.room.PrimaryKey
 import java.io.Serializable
 
 @Entity
-class GroceryEntity  {
+class GroceryEntity {
 
     @PrimaryKey(autoGenerate = true)
-    var id = 0
+    var id: Int = 0
 
     @ColumnInfo(name = "listName")
     var listName: String? = null
@@ -19,6 +19,9 @@ class GroceryEntity  {
     var itemName: String? = null
 
     @ColumnInfo(name = "finished")
-    var isFinished = false
-
+    var isFinished: Boolean = false
 }
+
+
+
+

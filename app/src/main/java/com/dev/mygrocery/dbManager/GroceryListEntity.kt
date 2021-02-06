@@ -5,15 +5,17 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.io.Serializable
 
+
 @Entity
-class GroceryListEntity : Serializable{
+ class GroceryListEntity{
 
     @PrimaryKey(autoGenerate = true)
-    var id = 0
+    var id: Int = 0
 
     @ColumnInfo(name = "listName")
     var listName: String? = null
 
     @ColumnInfo(name = "finished")
-    var isFinished = false
-}
+    var isFinished: Boolean = false
+ }
+

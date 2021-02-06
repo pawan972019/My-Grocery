@@ -2,6 +2,7 @@ package com.dev.mygrocery.fragment
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,6 +26,8 @@ import java.nio.charset.Charset
 
 class SuggestionFragment : Fragment() {
 
+    private val TAG:String = "SuggestionFragment"
+
     private var suggestionList = arrayListOf<GroceryListEntity>()
     private var suggestionAdapter : SuggestionAdapter? = null
 
@@ -34,7 +37,7 @@ class SuggestionFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        Log.e(TAG, "onCreate: ")
     }
 
     override fun onCreateView(
@@ -42,16 +45,41 @@ class SuggestionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
+
+        Log.e(TAG, "onCreateView: ")
         return inflater.inflate(R.layout.fragment_suggestion, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        Log.e(TAG, "onViewCreated: ")
+
         bindDataView()
     }
 
+    override fun onStart() {
+        super.onStart()
+        Log.e(TAG, "onStart: ")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.e(TAG, "onResume: ")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.e(TAG, "onPause: ")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.e(TAG, "onStop: ")
+    }
+
     private fun bindDataView() {
+
+        Log.e(TAG, "bindDataView: ")
 
         suggestion_recycler_view_list.layoutManager = LinearLayoutManager(activity)
 
@@ -71,7 +99,7 @@ class SuggestionFragment : Fragment() {
 
     }
 
-    suspend fun updateAdapterOnDataChanged(){
+    private suspend fun updateAdapterOnDataChanged(){
 
         CoroutineScope(Main).launch {
             suggestionAdapter?.notifyDataSetChanged()
