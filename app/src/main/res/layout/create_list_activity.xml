@@ -23,7 +23,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp16"
                 android:textStyle="bold"
-                android:text="Create List"
+                android:text="Add Item"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -41,8 +41,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

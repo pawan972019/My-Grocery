@@ -1,5 +1,6 @@
 package com.dev.mygrocery.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +9,15 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dev.mygrocery.R
 import com.dev.mygrocery.adapter.SuggestionAdapter
+import com.dev.mygrocery.dbManager.DatabaseClient
+import com.dev.mygrocery.dbManager.GroceryListEntity
 import com.dev.mygrocery.models.SuggestionResponse
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_suggestion.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
 import java.io.IOException
 import java.io.InputStream
 import java.nio.charset.Charset
@@ -18,7 +25,12 @@ import java.nio.charset.Charset
 
 class SuggestionFragment : Fragment() {
 
-    private var suggestionList: ArrayList<SuggestionResponse.Data.Suggestion>? = null
+    private var suggestionList = arrayListOf<GroceryListEntity>()
+    private var suggestionAdapter : SuggestionAdapter? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,39 +53,30 @@ class SuggestionFragment : Fragment() {
 
     private fun bindDataView() {
 
-        val gson = Gson()
-        val suggestionResponse = gson.fromJson(loadJSONFromAsset(), SuggestionResponse::class.java)
-
-        suggestionList = ArrayList()
         suggestion_recycler_view_list.layoutManager = LinearLayoutManager(activity)
 
-        val suggestionAdapter = activity?.let { SuggestionAdapter(it, suggestionList!!) }
+        suggestionAdapter = activity?.let { SuggestionAdapter(it, suggestionList!!) }
         suggestion_recycler_view_list.adapter = suggestionAdapter
 
-        suggestionList?.addAll(suggestionResponse.data.suggestionList)
-    }
+        CoroutineScope(IO).launch {
 
-    fun loadJSONFromAsset(): String? {
-        var json: String? = null
+            var itemList =
+                DatabaseClient.getInstance(context!!)?.appDatabase?.getGroceryListDao()?.all as ArrayList<GroceryListEntity>
 
-        json = try {
+            suggestionList.addAll(itemList)
 
-            val `is`: InputStream = activity!!.assets.open("suggestion.json")
-            val size: Int = `is`.available()
-            val buffer = ByteArray(size)
-            `is`.read(buffer)
-            `is`.close()
-
-            val charset: Charset = Charsets.UTF_8
-            String(buffer, charset)
-
-        } catch (ex: IOException) {
-            ex.printStackTrace()
-            return null
+            updateAdapterOnDataChanged()
         }
-        return json
+
+
     }
 
+    suspend fun updateAdapterOnDataChanged(){
+
+        CoroutineScope(Main).launch {
+            suggestionAdapter?.notifyDataSetChanged()
+        }
+    }
 
     companion object {
         /**
@@ -86,3 +89,4 @@ class SuggestionFragment : Fragment() {
 
     }
 }
+

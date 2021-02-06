@@ -6,16 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.dev.mygrocery.R
+import com.dev.mygrocery.dbManager.GroceryListEntity
 import com.dev.mygrocery.models.SuggestionResponse
 import kotlinx.android.synthetic.main.suggestion_adapter_row_item.view.*
 
-class SuggestionAdapter(private val context: Context, var suggestionList: List<SuggestionResponse.Data.Suggestion>) : RecyclerView.Adapter<SuggestionAdapter.SuggestionViewHolder>() {
+class SuggestionAdapter(private val context: Context, var suggestionList: List<GroceryListEntity>) : RecyclerView.Adapter<SuggestionAdapter.SuggestionViewHolder>() {
 
     private val TAG : String = "SuggestionAdapter";
 
     class SuggestionViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
 
-        val suggested_item_name = itemView.suggested_item_name!!
+        val suggestedItemName = itemView.suggested_item_name!!
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SuggestionViewHolder {
@@ -33,6 +34,6 @@ class SuggestionAdapter(private val context: Context, var suggestionList: List<S
 
         val suggestionResponse = suggestionList[position]
 
-        holder.suggested_item_name.text = suggestionResponse.name
+        holder.suggestedItemName.text = suggestionResponse.listName
     }
 }
