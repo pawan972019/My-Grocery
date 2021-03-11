@@ -12,16 +12,11 @@ import com.dev.mygrocery.R
 import com.dev.mygrocery.adapter.SuggestionAdapter
 import com.dev.mygrocery.dbManager.DatabaseClient
 import com.dev.mygrocery.dbManager.GroceryListEntity
-import com.dev.mygrocery.models.SuggestionResponse
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_suggestion.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
-import java.io.IOException
-import java.io.InputStream
-import java.nio.charset.Charset
 
 
 class SuggestionFragment : Fragment() {
@@ -95,7 +90,6 @@ class SuggestionFragment : Fragment() {
 
             updateAdapterOnDataChanged()
         }
-
 
     }
 
